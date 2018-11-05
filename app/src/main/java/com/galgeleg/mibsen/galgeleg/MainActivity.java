@@ -10,6 +10,24 @@ import android.view.WindowManager;
 
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * Tema ?
+     */
+
+    /**
+     *  - HighScore (SQLlite)
+     *      - Points pr korrekt
+     *      - Multiplier hvis flere i træk
+     *  - New Keyboard
+     *  - Sværhedsgrad
+     *      - Tegn i ord
+     *      - Tegn på keyboard
+     *  - Ord fra DR
+     *      - Loader Screen
+     *  - Lost screen med position på highscore samt navn <- gem i pref
+     *  - Win screen med antal samlet points og tillæg samt points fra næste score og position
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

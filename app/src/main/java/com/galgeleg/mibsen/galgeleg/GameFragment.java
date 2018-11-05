@@ -17,9 +17,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -32,6 +36,8 @@ public class GameFragment extends Fragment {
     protected TextView guessTextView;
     protected ImageView imageView;
     protected EditText inputGuess;
+
+    protected Map<String,View> keyboard;
 
     public GameFragment() {
         // Required empty public constructor
@@ -47,8 +53,9 @@ public class GameFragment extends Fragment {
         this.wordTextView = fragment.findViewById(R.id.game_word);
         this.guessTextView = fragment.findViewById(R.id.game_guess);
         this.imageView = fragment.findViewById(R.id.game_image);
-        this.inputGuess = fragment.findViewById(R.id.game_input_guess);
 
+
+        /*
         this.inputGuess.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -92,10 +99,55 @@ public class GameFragment extends Fragment {
 
             }
         });
-
+        */
         updateView();
 
         return fragment;
+    }
+
+    private void buildKeyboard(View fragment) {
+
+        HashMap<String, View> key = new HashMap<String, View>();
+
+        key.put("Q", fragment.findViewById(R.id.button_Q));
+        key.put("W", fragment.findViewById(R.id.button_W));
+        key.put("E", fragment.findViewById(R.id.button_E));
+        key.put("R", fragment.findViewById(R.id.button_R));
+        key.put("T", fragment.findViewById(R.id.button_T));
+        key.put("Y", fragment.findViewById(R.id.button_Y));
+        key.put("U", fragment.findViewById(R.id.button_U));
+        key.put("I", fragment.findViewById(R.id.button_I));
+        key.put("O", fragment.findViewById(R.id.button_O));
+        key.put("P", fragment.findViewById(R.id.button_P));
+        key.put("Å", fragment.findViewById(R.id.button_Å));
+
+        key.put("A", fragment.findViewById(R.id.button_A));
+        key.put("S", fragment.findViewById(R.id.button_S));
+        key.put("D", fragment.findViewById(R.id.button_D));
+        key.put("F", fragment.findViewById(R.id.button_F));
+        key.put("G", fragment.findViewById(R.id.button_G));
+        key.put("H", fragment.findViewById(R.id.button_H));
+        key.put("J", fragment.findViewById(R.id.button_J));
+        key.put("K", fragment.findViewById(R.id.button_K));
+        key.put("L", fragment.findViewById(R.id.button_L));
+        key.put("Æ", fragment.findViewById(R.id.button_Æ));
+        key.put("Ø", fragment.findViewById(R.id.button_Ø));
+
+        key.put("Z", fragment.findViewById(R.id.button_Z));
+        key.put("X", fragment.findViewById(R.id.button_X));
+        key.put("C", fragment.findViewById(R.id.button_C));
+        key.put("V", fragment.findViewById(R.id.button_V));
+        key.put("B", fragment.findViewById(R.id.button_B));
+        key.put("N", fragment.findViewById(R.id.button_N));
+        key.put("M", fragment.findViewById(R.id.button_M));
+
+        new Handler().post(() -> {
+        for(View btn : key.values()){
+            ((Button)btn).setVisibility(View.INVISIBLE);
+        }
+        });
+
+        this.keyboard = key;
     }
 
 
