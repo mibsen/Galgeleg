@@ -54,6 +54,7 @@ public class GameFragment extends Fragment {
         this.guessTextView = fragment.findViewById(R.id.game_guess);
         this.imageView = fragment.findViewById(R.id.game_image);
 
+        buildKeyboard(fragment);
 
         /*
         this.inputGuess.addTextChangedListener(new TextWatcher() {
@@ -141,11 +142,38 @@ public class GameFragment extends Fragment {
         key.put("N", fragment.findViewById(R.id.button_N));
         key.put("M", fragment.findViewById(R.id.button_M));
 
-        new Handler().post(() -> {
         for(View btn : key.values()){
-            ((Button)btn).setVisibility(View.INVISIBLE);
+           // ((Button)btn).setVisibility(View.INVISIBLE);
+
+            btn.setOnClickListener((view) -> {
+
+                ((Button) view).setEnabled(false);
+
+                String text = ((Button) view).getText().toString();
+
+                spil.gætBogstav(text.toLowerCase());
+
+                updateView();
+
+                if(!spil.erSidsteBogstavKorrekt()){
+                    Animation shake = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
+                    imageView.startAnimation(shake);
+                }
+
+                // Show success screen / overlay
+                if(spil.erSpilletVundet()){
+                    won();
+                }
+
+                // Show lost screen / overlay
+                if(spil.erSpilletTabt()){
+                    lost();
+                }
+
+
+
+            });
         }
-        });
 
         this.keyboard = key;
     }
@@ -186,15 +214,7 @@ public class GameFragment extends Fragment {
         guessTextView.setText(TextUtils.join(",", spil.getBrugteBogstaver()));
     }
 
-    private void hideKeyboard(){
-
-        InputMethodManager imm = (InputMethodManager) getView().getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-    }
-
     private void won(){
-
-        hideKeyboard();
 
         Fragment won = new WonFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -203,7 +223,6 @@ public class GameFragment extends Fragment {
     }
 
     private void lost(){
-        hideKeyboard();
 
         Fragment lost = new LostFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
