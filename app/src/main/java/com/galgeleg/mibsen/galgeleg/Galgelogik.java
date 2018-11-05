@@ -1,5 +1,7 @@
 package com.galgeleg.mibsen.galgeleg;
 
+import android.support.v4.content.res.TypedArrayUtils;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -31,6 +33,10 @@ public class Galgelogik {
 
     public String getOrdet() {
         return ordet;
+    }
+
+    public char[] muligeBogstaver() {
+        return ordet.toCharArray();
     }
 
     public int getAntalForkerteBogstaver() {

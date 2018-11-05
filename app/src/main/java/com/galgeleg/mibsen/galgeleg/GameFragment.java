@@ -25,7 +25,6 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -37,7 +36,7 @@ public class GameFragment extends Fragment {
     protected ImageView imageView;
     protected EditText inputGuess;
 
-    protected Map<String,View> keyboard;
+    protected Map<Character,View> keyboard;
 
     public GameFragment() {
         // Required empty public constructor
@@ -101,6 +100,7 @@ public class GameFragment extends Fragment {
             }
         });
         */
+
         updateView();
 
         return fragment;
@@ -108,42 +108,42 @@ public class GameFragment extends Fragment {
 
     private void buildKeyboard(View fragment) {
 
-        HashMap<String, View> key = new HashMap<String, View>();
+        HashMap<Character, View> key = new HashMap<Character, View>();
 
-        key.put("Q", fragment.findViewById(R.id.button_Q));
-        key.put("W", fragment.findViewById(R.id.button_W));
-        key.put("E", fragment.findViewById(R.id.button_E));
-        key.put("R", fragment.findViewById(R.id.button_R));
-        key.put("T", fragment.findViewById(R.id.button_T));
-        key.put("Y", fragment.findViewById(R.id.button_Y));
-        key.put("U", fragment.findViewById(R.id.button_U));
-        key.put("I", fragment.findViewById(R.id.button_I));
-        key.put("O", fragment.findViewById(R.id.button_O));
-        key.put("P", fragment.findViewById(R.id.button_P));
-        key.put("Å", fragment.findViewById(R.id.button_Å));
+        key.put('Q', fragment.findViewById(R.id.button_Q));
+        key.put('W', fragment.findViewById(R.id.button_W));
+        key.put('E', fragment.findViewById(R.id.button_E));
+        key.put('R', fragment.findViewById(R.id.button_R));
+        key.put('T', fragment.findViewById(R.id.button_T));
+        key.put('Y', fragment.findViewById(R.id.button_Y));
+        key.put('U', fragment.findViewById(R.id.button_U));
+        key.put('I', fragment.findViewById(R.id.button_I));
+        key.put('O', fragment.findViewById(R.id.button_O));
+        key.put('P', fragment.findViewById(R.id.button_P));
+        key.put('Å', fragment.findViewById(R.id.button_Å));
 
-        key.put("A", fragment.findViewById(R.id.button_A));
-        key.put("S", fragment.findViewById(R.id.button_S));
-        key.put("D", fragment.findViewById(R.id.button_D));
-        key.put("F", fragment.findViewById(R.id.button_F));
-        key.put("G", fragment.findViewById(R.id.button_G));
-        key.put("H", fragment.findViewById(R.id.button_H));
-        key.put("J", fragment.findViewById(R.id.button_J));
-        key.put("K", fragment.findViewById(R.id.button_K));
-        key.put("L", fragment.findViewById(R.id.button_L));
-        key.put("Æ", fragment.findViewById(R.id.button_Æ));
-        key.put("Ø", fragment.findViewById(R.id.button_Ø));
+        key.put('A', fragment.findViewById(R.id.button_A));
+        key.put('S', fragment.findViewById(R.id.button_S));
+        key.put('D', fragment.findViewById(R.id.button_D));
+        key.put('F', fragment.findViewById(R.id.button_F));
+        key.put('G', fragment.findViewById(R.id.button_G));
+        key.put('H', fragment.findViewById(R.id.button_H));
+        key.put('J', fragment.findViewById(R.id.button_J));
+        key.put('K', fragment.findViewById(R.id.button_K));
+        key.put('L', fragment.findViewById(R.id.button_L));
+        key.put('Æ', fragment.findViewById(R.id.button_Æ));
+        key.put('Ø', fragment.findViewById(R.id.button_Ø));
 
-        key.put("Z", fragment.findViewById(R.id.button_Z));
-        key.put("X", fragment.findViewById(R.id.button_X));
-        key.put("C", fragment.findViewById(R.id.button_C));
-        key.put("V", fragment.findViewById(R.id.button_V));
-        key.put("B", fragment.findViewById(R.id.button_B));
-        key.put("N", fragment.findViewById(R.id.button_N));
-        key.put("M", fragment.findViewById(R.id.button_M));
+        key.put('Z', fragment.findViewById(R.id.button_Z));
+        key.put('X', fragment.findViewById(R.id.button_X));
+        key.put('C', fragment.findViewById(R.id.button_C));
+        key.put('V', fragment.findViewById(R.id.button_V));
+        key.put('B', fragment.findViewById(R.id.button_B));
+        key.put('N', fragment.findViewById(R.id.button_N));
+        key.put('M', fragment.findViewById(R.id.button_M));
 
         for(View btn : key.values()){
-           // ((Button)btn).setVisibility(View.INVISIBLE);
+            ((Button)btn).setVisibility(View.INVISIBLE);
 
             btn.setOnClickListener((view) -> {
 
@@ -170,10 +170,13 @@ public class GameFragment extends Fragment {
                     lost();
                 }
 
-
-
             });
         }
+
+        for(Character c : this.spil.muligeBogstaver()){
+            key.get(Character.toUpperCase(c)).setVisibility(View.VISIBLE);
+        }
+
 
         this.keyboard = key;
     }
@@ -201,7 +204,7 @@ public class GameFragment extends Fragment {
             case 6:
                 imageView.setImageResource(R.drawable.forkert6);
                 break;
-            default:
+            case 7:
                 imageView.setImageResource(R.drawable.forkert6);
                 break;
         }
