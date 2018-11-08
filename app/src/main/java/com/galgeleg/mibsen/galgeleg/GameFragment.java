@@ -30,7 +30,6 @@ import java.util.Map;
  */
 public class GameFragment extends Fragment {
 
-    protected Galgelogik spil = new Galgelogik();
     protected TextView wordTextView;
     protected TextView guessTextView;
     protected ImageView imageView;
@@ -151,29 +150,29 @@ public class GameFragment extends Fragment {
 
                 String text = ((Button) view).getText().toString();
 
-                spil.gætBogstav(text.toLowerCase());
+                GameState.spil.gætBogstav(text.toLowerCase());
 
                 updateView();
 
-                if(!spil.erSidsteBogstavKorrekt()){
+                if(!GameState.spil.erSidsteBogstavKorrekt()){
                     Animation shake = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
                     imageView.startAnimation(shake);
                 }
 
                 // Show success screen / overlay
-                if(spil.erSpilletVundet()){
+                if(GameState.spil.erSpilletVundet()){
                     won();
                 }
 
                 // Show lost screen / overlay
-                if(spil.erSpilletTabt()){
+                if(GameState.spil.erSpilletTabt()){
                     lost();
                 }
 
             });
         }
 
-        for(Character c : this.spil.muligeBogstaver()){
+        for(Character c : GameState.spil.muligeBogstaver()){
             key.get(Character.toUpperCase(c)).setVisibility(View.VISIBLE);
         }
 
@@ -185,7 +184,7 @@ public class GameFragment extends Fragment {
     private void updateView(){
 
         // Lets update the drawing
-        switch (spil.getAntalForkerteBogstaver()){
+        switch (GameState.spil.getAntalForkerteBogstaver()){
             case 1:
                 imageView.setImageResource(R.drawable.forkert1);
                 break;
@@ -211,14 +210,15 @@ public class GameFragment extends Fragment {
 
 
         // Update Word
-        wordTextView.setText(spil.getSynligtOrd());
+        wordTextView.setText(GameState.spil.getSynligtOrd());
 
         // Update guesses
-        guessTextView.setText(TextUtils.join(",", spil.getBrugteBogstaver()));
+        guessTextView.setText(TextUtils.join(",", GameState.spil.getBrugteBogstaver()));
     }
 
     private void won(){
 
+        GameState.level++;
         Fragment won = new WonFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.anim.fade_in,R.anim.fade_out);

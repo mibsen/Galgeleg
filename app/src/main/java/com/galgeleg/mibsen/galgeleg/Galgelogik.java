@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -21,7 +22,8 @@ public class Galgelogik {
     private boolean sidsteBogstavVarKorrekt;
     private boolean spilletErVundet;
     private boolean spilletErTabt;
-
+    private final String muligeBogstaver= "qwertyuiopåasdfghjklæøzxcvbnm";
+    private Character[] tilladteBogstaver;
 
     public ArrayList<String> getBrugteBogstaver() {
         return brugteBogstaver;
@@ -35,8 +37,14 @@ public class Galgelogik {
         return ordet;
     }
 
-    public char[] muligeBogstaver() {
-        return ordet.toCharArray();
+    public Character[] muligeBogstaver() {
+
+        String total = "";
+        for (Character b : tilladteBogstaver){
+            total = total + b;
+        }
+        System.out.println(total);
+        return tilladteBogstaver;
     }
 
     public int getAntalForkerteBogstaver() {
@@ -81,6 +89,34 @@ public class Galgelogik {
         spilletErVundet = false;
         spilletErTabt = false;
         ordet = muligeOrd.get(new Random().nextInt(muligeOrd.size()));
+
+        ArrayList<Character> tilladteBogstaver =  new ArrayList<Character>();
+
+        String bogstaver = muligeBogstaver;
+
+        for (char bogstav : ordet.toLowerCase().toCharArray()) {
+                bogstaver =  bogstaver.replace(Character.toString(bogstav), "");
+            tilladteBogstaver.add(bogstav);
+        }
+
+        // Udvælg nogle andre mulige bogstaver - Her kan der tages højde for sværhedsgrad.
+
+        int andreMuligheder = 10;
+
+        for (int i = 0; i < andreMuligheder; i++){
+            if(bogstaver.length() == 0){
+                break;
+            }
+            int  n = new Random().nextInt(bogstaver.length());
+            char v = bogstaver.charAt(n);
+            tilladteBogstaver.add(v);
+            bogstaver = bogstaver.replace(Character.toString(v), "");
+        }
+
+
+        this.tilladteBogstaver = tilladteBogstaver.toArray(new Character[tilladteBogstaver.size()]);
+
+
         opdaterSynligtOrd();
     }
 

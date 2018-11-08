@@ -30,10 +30,10 @@ public class WonFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Fragment game = new GameFragment();
+                Fragment load = new LoadingFragment();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.setCustomAnimations(R.anim.fade_in,R.anim.fade_out);
-                ft.replace(R.id.content_frame,game).commit();
+                ft.replace(R.id.content_frame,load).commit();
 
             }
         });

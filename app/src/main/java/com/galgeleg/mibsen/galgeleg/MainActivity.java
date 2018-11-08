@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
      *  - Ord fra DR
      *      - Loader Screen
      *  - Lost screen med position på highscore samt navn <- gem i pref
-     *  - Win screen med antal samlet points og tillæg samt points fra næste score og position
+     *  - Win screen med antal samlet score og tillæg samt score fra næste score og position
      */
 
     @Override
@@ -43,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
         ///
 
         setContentView(R.layout.activity_main);
+
+        // Set SharedPreferences
+
+        GameState.preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
 
         Fragment menu = new MenuFragment();
 

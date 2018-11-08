@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Indstillinger">
+
+    <EditTextPreference
+        android:key="username"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="Tilføj dit brugernavn her"
+        android:title="Brugernavn" />
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="sound"
+        android:summary="(Ikke implementeret) - Tilføj / fjern lyd"
+        android:title="Lyd" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
+
