@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/listeelem_place"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textAlignment="center"
+        android:textSize="36sp" />
+
+    <TextView
+        android:id="@+id/listeelem_username"
+        android:layout_width="302dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_marginStart="13dp"
+        android:layout_toEndOf="@+id/listeelem_place"
+        android:text="Brugernavn"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/listeelem_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listeelem_username"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="1dp"
+        android:layout_toEndOf="@+id/listeelem_level2"
+        android:text="{level}"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/listeelem_level2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listeelem_username"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="1dp"
+        android:layout_toEndOf="@+id/listeelem_place"
+        android:text="level:"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/listeelem_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listeelem_username"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="76dp"
+        android:text="{score}"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listeelem_username"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="7dp"
+        android:layout_toStartOf="@+id/listeelem_score"
+        android:text="score:"
+        android:textSize="12sp" />
+
+
+</RelativeLayout>

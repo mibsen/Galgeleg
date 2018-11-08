@@ -14,6 +14,8 @@ import android.widget.TextView;
  */
 public class LoadingFragment extends Fragment {
 
+    private LoadData loadData;
+
     public LoadingFragment() {
         // Required empty public constructor
     }
@@ -25,31 +27,44 @@ public class LoadingFragment extends Fragment {
         View fragment =  inflater.inflate(R.layout.fragment_loading, container, false);
 
         ((TextView) fragment.findViewById(R.id.level_number)).setText("" + GameState.level);
-        GameState.spil.nulstil();
+         GameState.spil.nulstil();
 
-        new AsyncTask(){
-
-            @Override
-            protected Object doInBackground(Object[] objects) {
-                try {
-                    GameState.spil.hentOrdFraDr();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Object o) {
-                super.onPostExecute(o);
-
-                Fragment game = new GameFragment();
-                getFragmentManager().beginTransaction().replace(R.id.content_frame,game).commit();
-            }
-        }.execute();
+         loadData = new LoadData();
+         
+         loadData.execute();
 
         return fragment;
     }
+
+    @Override
+    public void onDestroy() {
+        if(loadData != null){
+            loadData.cancel(true);
+        }
+
+        super.onDestroy();
+    }
+
+    private class LoadData extends AsyncTask{
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            try {
+                GameState.spil.hentOrdFraDr();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+
+            Fragment game = new GameFragment();
+            getFragmentManager().beginTransaction().replace(R.id.content_frame,game).commit();
+        }
+    };
 
 }

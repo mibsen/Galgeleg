@@ -1,6 +1,7 @@
 package com.galgeleg.mibsen.galgeleg;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -33,9 +34,9 @@ public class LostFragment extends Fragment {
 
         ((TextView) fragment.findViewById(R.id.lost_level)).setText("" + GameState.level);
         ((TextView) fragment.findViewById(R.id.lost_word)).setText(GameState.spil.getOrdet());
-        ((TextView) fragment.findViewById(R.id.lost_score)).setText("" +GameState.score );
+        ((TextView) fragment.findViewById(R.id.lost_score)).setText("" + GameState.score);
 
-        String username = GameState.preferences.getString(GamePreferences.USERNAME.getKey(),"");
+        String username = GameState.preferences.getString(GamePreferences.USERNAME.getKey(), "");
 
         ((EditText) fragment.findViewById(R.id.lost_username_edittext)).setText(username);
 
@@ -43,26 +44,36 @@ public class LostFragment extends Fragment {
         fragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
                 String username = ((EditText) fragment.findViewById(R.id.lost_username_edittext)).getText().toString();
 
                 // Gem i highscore og opdater preferences
-                if(!username.equals("")){
+                if (!username.equals("")) {
 
                     // Opdater preferences
-                    GameState.preferences.edit().putString(GamePreferences.USERNAME.getKey(),username);
+                    GameState.preferences.edit().putString(GamePreferences.USERNAME.getKey(), username).commit();
 
-                    // Opdatere Highscore
+                    Score score = new Score();
+                    score.username = username;
+                    score.level = GameState.level;
+                    score.score = GameState.score;
+
+                    new AsyncTask() {
+                        @Override
+                        protected Object doInBackground(Object[] objects) {
+                            // Opdatere Highscore
+                            GameState.db.scoreDao().insertAll(score);
+                            return null;
+                        }
+                    }.execute();
                 }
-
 
                 GameState.reset();
 
-
                 Fragment load = new LoadingFragment();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.setCustomAnimations(R.anim.fade_in,R.anim.fade_out);
-                ft.replace(R.id.content_frame,load).commit();
+                ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                ft.replace(R.id.content_frame, load).commit();
 
             }
         });

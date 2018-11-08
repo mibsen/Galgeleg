@@ -7,11 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class MenuFragment extends Fragment implements View.OnClickListener{
+public class MenuFragment extends Fragment implements View.OnClickListener {
 
 
     private View btnStart;
     private View btnPref;
+    private View btnHighScore;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -25,18 +26,25 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
         btnPref = fragment.findViewById(R.id.menu_pref_btn);
         btnPref.setOnClickListener(this);
 
+        btnHighScore = fragment.findViewById(R.id.menu_highscore_btn);
+        btnHighScore.setOnClickListener(this);
+
         return fragment;
     }
 
     @Override
     public void onClick(View v) {
 
-        if(v == btnStart){
-        Fragment intro = new LoadingFragment();
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame,intro).commit();
-        } else if (v == btnPref){
+        if (v == btnStart) {
+            GameState.reset();
+            Fragment intro = new LoadingFragment();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, intro).commit();
+        } else if (v == btnPref) {
             Fragment pref = new IndstillingeFragment();
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame,pref).addToBackStack(null).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, pref).addToBackStack(null).commit();
+        } else if (v == btnHighScore) {
+            Fragment score = new HighScoreFragment();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, score).addToBackStack(null).commit();
         }
     }
 }

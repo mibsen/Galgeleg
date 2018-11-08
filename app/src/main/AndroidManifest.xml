@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".IndstillingerActivity"></activity>
+        <activity android:name=".IndstillingerActivity" />
+        <activity android:name=".HighScoreFragment"></activity>
     </application>
 
 </manifest>
