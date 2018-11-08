@@ -220,7 +220,7 @@ public class GameFragment extends Fragment {
 
         GameState.level++;
         Fragment won = new WonFragment();
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.anim.fade_in,R.anim.fade_out);
         ft.replace(R.id.content_frame,won).commit();
     }
@@ -228,7 +228,7 @@ public class GameFragment extends Fragment {
     private void lost(){
 
         Fragment lost = new LostFragment();
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.anim.fade_in,R.anim.fade_out);
         ft.replace(R.id.content_frame,lost).commit();
     }

@@ -19,6 +19,10 @@
         android:summary="(Ikke implementeret) - Tilføj / fjern lyd"
         android:title="Lyd" />
 
+        <Preference android:title="Clear Highscore / data"
+            android:key="@string/pref_drop_data"
+            android:summary="Warning - this will empty the highscore"/>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

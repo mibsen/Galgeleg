@@ -1,4 +1,4 @@
-package com.galgeleg.mibsen.galgeleg;
+package com.galgeleg.mibsen.galgeleg.highscore;
 
 import android.annotation.TargetApi;
 import android.os.Build;

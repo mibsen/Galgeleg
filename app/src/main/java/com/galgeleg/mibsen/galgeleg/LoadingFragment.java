@@ -20,6 +20,8 @@ public class LoadingFragment extends Fragment {
         // Required empty public constructor
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,7 +65,7 @@ public class LoadingFragment extends Fragment {
             super.onPostExecute(o);
 
             Fragment game = new GameFragment();
-            getFragmentManager().beginTransaction().replace(R.id.content_frame,game).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame,game).commit();
         }
     };
 

@@ -1,4 +1,4 @@
-package com.galgeleg.mibsen.galgeleg;
+package com.galgeleg.mibsen.galgeleg.database;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;

@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.galgeleg.mibsen.galgeleg.highscore.HighScoreFragment;
+
 
 public class MenuFragment extends Fragment implements View.OnClickListener {
 
@@ -38,7 +40,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         if (v == btnStart) {
             GameState.reset();
             Fragment intro = new LoadingFragment();
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, intro).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, intro).addToBackStack(null).commit();
         } else if (v == btnPref) {
             Fragment pref = new IndstillingeFragment();
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, pref).addToBackStack(null).commit();

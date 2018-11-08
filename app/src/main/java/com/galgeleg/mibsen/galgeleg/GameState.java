@@ -1,7 +1,8 @@
 package com.galgeleg.mibsen.galgeleg;
 
-import android.arch.persistence.room.Room;
 import android.content.SharedPreferences;
+
+import com.galgeleg.mibsen.galgeleg.database.AppDatabase;
 
 public class GameState {
 

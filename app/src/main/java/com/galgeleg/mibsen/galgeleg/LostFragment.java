@@ -1,6 +1,7 @@
 package com.galgeleg.mibsen.galgeleg;
 
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,8 +9,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.galgeleg.mibsen.galgeleg.database.Score;
 
 
 /**
@@ -44,6 +48,8 @@ public class LostFragment extends Fragment {
         fragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                hideKeyboard(getActivity());
 
                 String username = ((EditText) fragment.findViewById(R.id.lost_username_edittext)).getText().toString();
 
@@ -80,6 +86,14 @@ public class LostFragment extends Fragment {
 
         return fragment;
 
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        View view = activity.findViewById(android.R.id.content);
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(activity.getApplicationContext().INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
 }

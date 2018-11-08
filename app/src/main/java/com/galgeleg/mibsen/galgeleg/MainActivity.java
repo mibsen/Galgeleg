@@ -1,14 +1,13 @@
 package com.galgeleg.mibsen.galgeleg;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.arch.persistence.room.Room;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.galgeleg.mibsen.galgeleg.database.AppDatabase;
 
 public class MainActivity extends AppCompatActivity {
 

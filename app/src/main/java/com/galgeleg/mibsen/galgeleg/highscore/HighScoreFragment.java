@@ -1,4 +1,4 @@
-package com.galgeleg.mibsen.galgeleg;
+package com.galgeleg.mibsen.galgeleg.highscore;
 
 
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import com.galgeleg.mibsen.galgeleg.R;
 
 public class HighScoreFragment extends Fragment {
 
