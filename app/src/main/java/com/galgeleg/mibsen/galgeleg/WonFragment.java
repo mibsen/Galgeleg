@@ -38,6 +38,8 @@ public class WonFragment extends BaseGame {
             }
         });
 
+        TextView tries = fragment.findViewById(R.id.won_tries);
+        tries.setText("Du brugte "+GameState.spil.getAntalForkerteBogstaver()+" Forsøg");
 
         TextView score = fragment.findViewById(R.id.won_score);
         score.setText("" + GameState.prevScore);
