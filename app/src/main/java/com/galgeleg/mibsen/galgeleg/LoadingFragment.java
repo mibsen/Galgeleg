@@ -12,15 +12,13 @@ import android.widget.TextView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LoadingFragment extends Fragment {
+public class LoadingFragment extends BaseGame {
 
     private LoadData loadData;
 
     public LoadingFragment() {
         // Required empty public constructor
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,6 +28,7 @@ public class LoadingFragment extends Fragment {
 
         ((TextView) fragment.findViewById(R.id.level_number)).setText("" + GameState.level);
          GameState.spil.nulstil();
+         GameState.spil.setLevel(GameState.level);
 
          loadData = new LoadData();
          

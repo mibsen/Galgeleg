@@ -24,6 +24,8 @@ public class Galgelogik {
     private boolean spilletErTabt;
     private final String muligeBogstaver= "qwertyuiopåasdfghjklæøzxcvbnm";
     private Character[] tilladteBogstaver;
+    private int level;
+    private int antalForkerteMuligeBogstaver = 7;
 
     public ArrayList<String> getBrugteBogstaver() {
         return brugteBogstaver;
@@ -43,7 +45,7 @@ public class Galgelogik {
         for (Character b : tilladteBogstaver){
             total = total + b;
         }
-        System.out.println(total);
+
         return tilladteBogstaver;
     }
 
@@ -61,6 +63,28 @@ public class Galgelogik {
 
     public boolean erSpilletTabt() {
         return spilletErTabt;
+    }
+
+    public int getLevel(){
+        return level;
+    }
+
+    public void setLevel(int level){
+        this.level = level;
+
+        if(level < 5){
+            this.antalForkerteMuligeBogstaver = 8;
+        } else if(level < 10){
+            this.antalForkerteMuligeBogstaver = 10;
+        } else if(level < 12){
+            this.antalForkerteMuligeBogstaver = 12;
+        } else if(level < 14){
+            this.antalForkerteMuligeBogstaver = 15;
+        } else if(level < 16){
+            this.antalForkerteMuligeBogstaver = 20;
+        } else {
+            this.antalForkerteMuligeBogstaver = this.muligeBogstaver.length();
+        }
     }
 
     public boolean erSpilletSlut() {
@@ -101,7 +125,7 @@ public class Galgelogik {
 
         // Udvælg nogle andre mulige bogstaver - Her kan der tages højde for sværhedsgrad.
 
-        int andreMuligheder = 10;
+        int andreMuligheder = this.antalForkerteMuligeBogstaver;
 
         for (int i = 0; i < andreMuligheder; i++){
             if(bogstaver.length() == 0){
@@ -112,7 +136,6 @@ public class Galgelogik {
             tilladteBogstaver.add(v);
             bogstaver = bogstaver.replace(Character.toString(v), "");
         }
-
 
         this.tilladteBogstaver = tilladteBogstaver.toArray(new Character[tilladteBogstaver.size()]);
 

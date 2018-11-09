@@ -19,7 +19,7 @@ import com.galgeleg.mibsen.galgeleg.database.Score;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LostFragment extends Fragment {
+public class LostFragment extends BaseGame {
 
 
     private View fragment;

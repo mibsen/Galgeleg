@@ -28,12 +28,13 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GameFragment extends Fragment {
+public class GameFragment extends BaseGame {
 
     protected TextView wordTextView;
     protected TextView guessTextView;
     protected ImageView imageView;
-    protected EditText inputGuess;
+    protected TextView multiplierTextView;
+
 
     protected Map<Character,View> keyboard;
 
@@ -51,54 +52,9 @@ public class GameFragment extends Fragment {
         this.wordTextView = fragment.findViewById(R.id.game_word);
         this.guessTextView = fragment.findViewById(R.id.game_guess);
         this.imageView = fragment.findViewById(R.id.game_image);
+        this.multiplierTextView = fragment.findViewById(R.id.game_multiplier);
 
         buildKeyboard(fragment);
-
-        /*
-        this.inputGuess.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                String text = s.toString();
-
-                if(text.equals("")){
-                    return;
-                }
-
-                spil.gætBogstav(text.toLowerCase());
-                updateView();
-
-                if(!spil.erSidsteBogstavKorrekt()){
-                    Animation shake = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
-                    imageView.startAnimation(shake);
-                }
-
-                // Show success screen / overlay
-                if(spil.erSpilletVundet()){
-                    won();
-                }
-
-                // Show lost screen / overlay
-                if(spil.erSpilletTabt()){
-                    lost();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                if(!inputGuess.getText().toString().equals("")){
-                    inputGuess.setText("");
-                }
-
-            }
-        });
-        */
 
         updateView();
 
@@ -157,6 +113,20 @@ public class GameFragment extends Fragment {
                 if(!GameState.spil.erSidsteBogstavKorrekt()){
                     Animation shake = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
                     imageView.startAnimation(shake);
+                    GameState.wrongGuess();
+                } else {
+                    // Show multiplier
+                    if(GameState.multiplier > 1){
+                        multiplierTextView.setText("X" + GameState.multiplier);
+                        multiplierTextView.setVisibility(View.VISIBLE);
+                        Animation shake = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
+                        multiplierTextView.startAnimation(shake);
+
+                        new Handler().postDelayed(()->{
+                            multiplierTextView.setVisibility(View.GONE);
+                        },1000);
+                    }
+                    GameState.correctGuess();
                 }
 
                 // Show success screen / overlay
@@ -207,7 +177,6 @@ public class GameFragment extends Fragment {
                 imageView.setImageResource(R.drawable.forkert6);
                 break;
         }
-
 
         // Update Word
         wordTextView.setText(GameState.spil.getSynligtOrd());
