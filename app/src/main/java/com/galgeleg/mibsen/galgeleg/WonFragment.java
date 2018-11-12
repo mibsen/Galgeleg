@@ -32,14 +32,19 @@ public class WonFragment extends BaseGame {
 
                 Fragment load = new LoadingFragment();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.setCustomAnimations(R.anim.fade_in,R.anim.fade_out);
-                ft.replace(R.id.content_frame,load).commit();
+                ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                ft.replace(R.id.content_frame, load).commit();
 
             }
         });
 
         TextView tries = fragment.findViewById(R.id.won_tries);
-        tries.setText("Du brugte "+GameState.spil.getAntalForkerteBogstaver()+" Forsøg");
+        // Med static fra Game
+        //tries.setText("Du brugte "+GameState.spil.getAntalForkerteBogstaver()+" Forsøg");
+
+        // Med bundle
+        Bundle args = getArguments();
+        tries.setText("Du brugte "+args.getInt("tries")+" Forsøg");
 
         TextView score = fragment.findViewById(R.id.won_score);
         score.setText("" + GameState.prevScore);
@@ -53,9 +58,9 @@ public class WonFragment extends BaseGame {
         });
 
         // Wait for animation
-        new Handler().postDelayed(()->{
+        new Handler().postDelayed(() -> {
             animator.start();
-        },2000);
+        }, 2000);
 
         return fragment;
     }

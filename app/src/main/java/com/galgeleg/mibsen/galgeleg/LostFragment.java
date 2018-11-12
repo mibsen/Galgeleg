@@ -37,7 +37,15 @@ public class LostFragment extends BaseGame {
 
 
         ((TextView) fragment.findViewById(R.id.lost_level)).setText("" + GameState.level);
-        ((TextView) fragment.findViewById(R.id.lost_word)).setText(GameState.spil.getOrdet());
+
+        // Med static
+        //        ((TextView) fragment.findViewById(R.id.lost_word)).setText(GameState.spil.getOrdet());
+
+
+        // Med bundle
+        Bundle args = getArguments();
+        ((TextView) fragment.findViewById(R.id.lost_word)).setText(args.getString("word"));
+
         ((TextView) fragment.findViewById(R.id.lost_score)).setText("" + GameState.score);
 
         String username = GameState.preferences.getString(GamePreferences.USERNAME.getKey(), "");

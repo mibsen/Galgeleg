@@ -189,6 +189,9 @@ public class GameFragment extends BaseGame {
 
         GameState.level++;
         Fragment won = new WonFragment();
+        Bundle args = new Bundle();
+        args.putInt("tries", GameState.spil.getAntalForkerteBogstaver());
+        won.setArguments(args);
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.anim.fade_in,R.anim.fade_out);
         ft.replace(R.id.content_frame,won).commit();
@@ -197,6 +200,12 @@ public class GameFragment extends BaseGame {
     private void lost(){
 
         Fragment lost = new LostFragment();
+
+        // Bundle for at sende data til fragment. Vi ville også kunne benytte static game direkte i lost fragment
+        Bundle args = new Bundle();
+        args.putString("word", GameState.spil.getOrdet());
+        lost.setArguments(args);
+
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.anim.fade_in,R.anim.fade_out);
         ft.replace(R.id.content_frame,lost).commit();

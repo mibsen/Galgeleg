@@ -53,7 +53,14 @@ public class LoadingFragment extends BaseGame {
             try {
                 GameState.spil.hentOrdFraDr();
             } catch (Exception e) {
+                // Ingen internet forbindelse. Fald tilbage til Pre implementeret ord i Spil
                 e.printStackTrace();
+                try {
+                    // Sleep for at vise lvl skærm
+                    Thread.sleep(600);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
             }
 
             return null;
