@@ -3,6 +3,9 @@ package com.galgeleg.mibsen.galgeleg;
 import android.content.SharedPreferences;
 
 import com.galgeleg.mibsen.galgeleg.database.AppDatabase;
+import com.galgeleg.mibsen.galgeleg.database.Word;
+
+import java.util.ArrayList;
 
 public class GameState {
 
@@ -21,7 +24,11 @@ public class GameState {
 
     public static AppDatabase db;
 
+    public static ArrayList<Word> words = new ArrayList<>();
+
     public static void reset() {
+
+        words = new ArrayList<>();
         GameState.level = 1;
         GameState.score = 0;
         GameState.prevScore = 0;

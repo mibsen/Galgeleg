@@ -1,6 +1,7 @@
 package com.galgeleg.mibsen.galgeleg.highscore;
 
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.galgeleg.mibsen.galgeleg.GameState;
 import com.galgeleg.mibsen.galgeleg.R;
@@ -70,6 +72,22 @@ public class HighScoreList extends Fragment {
             score.setText(s.score+ "");
             place.setText(""+(position+1));
             level.setText("" + s.level);
+
+
+            vh.itemView.setOnClickListener((view) -> {
+
+                DialogFragment dialog = new DialogFragment();
+
+                Bundle arguments = new Bundle();
+
+                arguments.putInt("id",s.id);
+                arguments.putInt("position",position+1);
+                dialog.setArguments(arguments);
+
+                dialog.show(getFragmentManager(), "dialog");
+
+            });
+
         }
     };
 

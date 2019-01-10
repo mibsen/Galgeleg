@@ -47,10 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Set SharedPreferences
 
-        GameState.preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        GameState.db = AppDatabase.getAppDatabase(this);
-
         Fragment menu = new MenuFragment();
 
         if (savedInstanceState == null) {

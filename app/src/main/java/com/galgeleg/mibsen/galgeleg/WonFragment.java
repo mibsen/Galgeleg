@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.galgeleg.mibsen.galgeleg.database.Word;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +29,12 @@ public class WonFragment extends BaseGame {
         fragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Word o = new Word();
+                o.score = GameState.score - GameState.prevScore;
+                o.word = GameState.spil.getOrdet();
+
+                GameState.words.add(o);
 
                 GameState.prevScore = GameState.score;
 
@@ -56,6 +64,7 @@ public class WonFragment extends BaseGame {
                 score.setText(animation.getAnimatedValue().toString());
             }
         });
+
 
         // Wait for animation
         new Handler().postDelayed(() -> {

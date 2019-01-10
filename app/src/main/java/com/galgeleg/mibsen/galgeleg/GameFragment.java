@@ -2,6 +2,8 @@ package com.galgeleg.mibsen.galgeleg;
 
 
 import android.content.Context;
+import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -22,6 +24,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.jinatonic.confetti.CommonConfetti;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,8 +39,9 @@ public class GameFragment extends BaseGame {
     protected ImageView imageView;
     protected TextView multiplierTextView;
 
+    protected View fragment;
 
-    protected Map<Character,View> keyboard;
+    protected Map<Character, View> keyboard;
 
     public GameFragment() {
         // Required empty public constructor
@@ -47,7 +52,7 @@ public class GameFragment extends BaseGame {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View fragment =  inflater.inflate(R.layout.fragment_game, container, false);
+        fragment = inflater.inflate(R.layout.fragment_game, container, false);
 
         this.wordTextView = fragment.findViewById(R.id.game_word);
         this.guessTextView = fragment.findViewById(R.id.game_guess);
@@ -97,8 +102,8 @@ public class GameFragment extends BaseGame {
         key.put('N', fragment.findViewById(R.id.button_N));
         key.put('M', fragment.findViewById(R.id.button_M));
 
-        for(View btn : key.values()){
-            ((Button)btn).setVisibility(View.INVISIBLE);
+        for (View btn : key.values()) {
+            ((Button) btn).setVisibility(View.INVISIBLE);
 
             btn.setOnClickListener((view) -> {
 
@@ -110,39 +115,39 @@ public class GameFragment extends BaseGame {
 
                 updateView();
 
-                if(!GameState.spil.erSidsteBogstavKorrekt()){
+                if (!GameState.spil.erSidsteBogstavKorrekt()) {
                     Animation shake = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
                     imageView.startAnimation(shake);
                     GameState.wrongGuess();
                 } else {
                     // Show multiplier
-                    if(GameState.multiplier > 1){
+                    if (GameState.multiplier > 1) {
                         multiplierTextView.setText("X" + GameState.multiplier);
                         multiplierTextView.setVisibility(View.VISIBLE);
                         Animation shake = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
                         multiplierTextView.startAnimation(shake);
 
-                        new Handler().postDelayed(()->{
+                        new Handler().postDelayed(() -> {
                             multiplierTextView.setVisibility(View.GONE);
-                        },1000);
+                        }, 1000);
                     }
                     GameState.correctGuess();
                 }
 
                 // Show success screen / overlay
-                if(GameState.spil.erSpilletVundet()){
+                if (GameState.spil.erSpilletVundet()) {
                     won();
                 }
 
                 // Show lost screen / overlay
-                if(GameState.spil.erSpilletTabt()){
+                if (GameState.spil.erSpilletTabt()) {
                     lost();
                 }
 
             });
         }
 
-        for(Character c : GameState.spil.muligeBogstaver()){
+        for (Character c : GameState.spil.muligeBogstaver()) {
             key.get(Character.toUpperCase(c)).setVisibility(View.VISIBLE);
         }
 
@@ -151,10 +156,10 @@ public class GameFragment extends BaseGame {
     }
 
 
-    private void updateView(){
+    private void updateView() {
 
         // Lets update the drawing
-        switch (GameState.spil.getAntalForkerteBogstaver()){
+        switch (GameState.spil.getAntalForkerteBogstaver()) {
             case 1:
                 imageView.setImageResource(R.drawable.forkert1);
                 break;
@@ -185,7 +190,10 @@ public class GameFragment extends BaseGame {
         guessTextView.setText(TextUtils.join(",", GameState.spil.getBrugteBogstaver()));
     }
 
-    private void won(){
+    private void won() {
+
+        CommonConfetti.rainingConfetti((ViewGroup) fragment, new int[]{Color.RED, Color.GREEN, Color.BLUE, Color.WHITE, Color.YELLOW})
+                .stream(3000);
 
         GameState.level++;
         Fragment won = new WonFragment();
@@ -193,11 +201,19 @@ public class GameFragment extends BaseGame {
         args.putInt("tries", GameState.spil.getAntalForkerteBogstaver());
         won.setArguments(args);
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.setCustomAnimations(R.anim.fade_in,R.anim.fade_out);
-        ft.replace(R.id.content_frame,won).commit();
+        ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        ft.replace(R.id.content_frame, won).commit();
     }
 
-    private void lost(){
+    private void lost() {
+
+        //Should we play a sound?
+        boolean sound = GameState.preferences.getBoolean(GamePreferences.SOUND.getKey(), true);
+
+        if (sound) {
+            MediaPlayer mp = MediaPlayer.create(getContext(), R.raw.lost);
+            mp.start();
+        }
 
         Fragment lost = new LostFragment();
 
@@ -207,7 +223,7 @@ public class GameFragment extends BaseGame {
         lost.setArguments(args);
 
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.setCustomAnimations(R.anim.fade_in,R.anim.fade_out);
-        ft.replace(R.id.content_frame,lost).commit();
+        ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        ft.replace(R.id.content_frame, lost).commit();
     }
 }

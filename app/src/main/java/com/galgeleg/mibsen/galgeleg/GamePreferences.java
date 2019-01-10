@@ -2,7 +2,8 @@ package com.galgeleg.mibsen.galgeleg;
 
 public enum GamePreferences
 {
-    USERNAME("username");
+    USERNAME("username"),
+    SOUND("sound");
 
     private String key;
 

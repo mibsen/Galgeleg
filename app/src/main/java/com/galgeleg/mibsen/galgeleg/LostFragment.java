@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.galgeleg.mibsen.galgeleg.database.Score;
+import com.galgeleg.mibsen.galgeleg.database.Word;
 
 
 /**
@@ -72,11 +73,32 @@ public class LostFragment extends BaseGame {
                     score.level = GameState.level;
                     score.score = GameState.score;
 
+                    Word o = new Word();
+                    o.score = GameState.score - GameState.prevScore ;
+                    o.word = GameState.spil.getOrdet();
+
+                    GameState.words.add(o);
+
+                    Word[] words = GameState.words.toArray(new Word[0]);
+
                     new AsyncTask() {
                         @Override
                         protected Object doInBackground(Object[] objects) {
                             // Opdatere Highscore
-                            GameState.db.scoreDao().insertAll(score);
+                            int id =  (int)  GameState.db.scoreDao().insert(score);
+
+                            System.out.println(id);
+
+                            for (Word w: words) {
+                                w.scoreId=id;
+                            }
+
+                            for (Word w: words) {
+                                System.out.println(w.id);
+                            }
+
+                            GameState.db.wordDao().insertAll(words);
+
                             return null;
                         }
                     }.execute();

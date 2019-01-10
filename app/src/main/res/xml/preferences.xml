@@ -16,7 +16,7 @@
     <CheckBoxPreference
         android:defaultValue="true"
         android:key="sound"
-        android:summary="(Ikke implementeret) - Tilføj / fjern lyd"
+        android:summary="enable lyd"
         android:title="Lyd" />
 
         <Preference android:title="Clear Highscore / data"
